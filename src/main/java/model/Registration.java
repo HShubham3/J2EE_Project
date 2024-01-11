@@ -150,8 +150,75 @@ public class Registration {
 	        return al;
 	    }
 
+		
+		public ArrayList<student> getUserDetails() {
+			Statement st;
+			ResultSet rs;
+			ArrayList<student> al = new ArrayList<student>();
+			try {
+				st = con.createStatement();
+				String qry = "select *,date_format(timedate,'%b %d, %Y') as date1 from sookshmas1 where slno not in(1);";
+				rs = st.executeQuery(qry);
+				while (rs.next()) {
+					student p = new student();
+					p.setId(rs.getString("slno"));
+					p.setName(rs.getString("name"));
+					p.setemail(rs.getString("email"));
+					p.setphone(rs.getString("phone"));
+					p.setdate(rs.getString("date1"));
+					al.add(p);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return al;
+		}
 
+		public String delete(String id) {
+			 String status="";
+			 int count=0;
+			 Statement st;
+			
+			 try {
+				st=con.createStatement();
+				String qry ="delete from sookshmas1 where slno='"+id+"'";
+				count=st.executeUpdate(qry);
+				
+				if(count>0) {
+					status="success";
+				}
+				else {
+					status="failed";
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			 
+			 return status;
+		}
 
-
+		public String forgotPassword(String pw, String id) {
+			String status="";
+			int count=0;
+			Statement st;
+			
+			String qry="update sookshmas1 set password='"+pw+"' where slno='"+id+"'";
+			try {
+				st=con.createStatement();
+				count = st.executeUpdate(qry);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			if(count>0) {
+				status="success";
+			}
+			else {
+				status="failed";
+			}
+			
+			return status;
+		}
 
 }
