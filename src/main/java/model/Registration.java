@@ -171,7 +171,7 @@ public class Registration {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return al;
+			return al; 
 		}
 
 		public String delete(String id) {
