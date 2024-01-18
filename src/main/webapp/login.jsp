@@ -65,9 +65,7 @@
 			});
 		});
 	</script>
-
-
-<center>8
+<center>
 	<%
 	if (request.getAttribute("status") != null) {
 	%>

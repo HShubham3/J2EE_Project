@@ -7,27 +7,37 @@
 <title>Page | Forgot Password</title>
  
 	
-	<style>
-	 
-	 body{
-	 
-	 margin:0;
-	 padding:0;
-	 
-	 }
-	
-	 .container{
-	 
-	 margin:200px 600px;
-	 
-	 }
-	 
-	 #msg{
-	 
-	 background-color:green;
-	 color:#fff;
-	 
-	 }
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<title>forgot password</title>
+<style>
+.fp
+{
+border:2px solid black;
+margin:30vh;
+width:50vh;
+padding-bottom:40px;
+border-radius:5px;
+}
+.fc
+{
+width:46vh;
+margin-left:-17vh;
+border-radius:5px;
+height:6vh;
+}
+#msg{
+
+	background-color:rgb(37, 150, 190);
+	color:#894B11 ;
+	padding:5px;
+	margin:5px 3px 0 3px;
+	border-radius: 10px;
+	font-size:25px;
+	font-weigth:600;
+
+}
+</style>
+
 	 
 	
 	</style>
@@ -36,45 +46,31 @@
 
 	<%@include file="header.jsp"%>
 
-	<div class="container">
-	
-	   	<%
-	    if (request.getAttribute("status") != null) {
+	<center>
+		<div class="fp">
+		<%
+		if (request.getAttribute("status") != null) {
 		%>
-		<div id="msg" class="form-group col-md-4">
+		<div id="msg">
 			<%=request.getAttribute("status")%></div>
 		<%
 		}
 		%>
+			<form method="POST" id="forgot" action="register">
+				<font color="blue" size="4">
+					<div class="p-4"></div>
+					<h2>Forgot Password</h2>
+					<p class="text-muted">Enter your email address</p>
+					<div class="p-1"></div>
+					<div class="container ">
+						<div class="form-group col-md-4">
+							<input type="email" class="fc" placeholder="abc@gmail.com" name="email">
+						</div>
+						<button type="submit" class="btn btn-primary" name="continue">continue</button>
+			</form>
+		</div>
+	</center>
 
-		<form action="forgot" method="post" class="form">
-		
-
-			 <div class="heading">Reset Password</div>
-
-			<div class="form-input">
-				<input type="text" name="email" placeholder="Email address">
-			</div>
-			
-			<div class="form-input">
-				<input type="text" name="id" placeholder="Id">
-			</div>
-			
-			<div class="form-input">
-				<input type="password" name="pw" placeholder="new password">
-			</div>
-			
-			<div class="form-input">
-				<input type="password" name="cp" placeholder="confirm password">
-			</div>
-			 
-			<div class="form-input">
-				<input type="submit" name="forgot" value="Reset">
-			</div>
-		
-		</form>
-
-	</div>
 
 
 

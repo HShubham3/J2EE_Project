@@ -81,7 +81,7 @@
 				cp: {
 					required: "Please reenter the password.",
 					minlength: "Please enter the password greater than or equal to 6.",
-					equalTo: "mismatch password"
+					equal To: "mismatch password"
 				}
 			}
 		});

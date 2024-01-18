@@ -198,26 +198,90 @@ public class Registration {
 			 return status;
 		}
 
-		public String forgotPassword(String pw, String id) {
-			String status="";
-			int count=0;
-			Statement st;
-			
-			String qry="update sookshmas1 set password='"+pw+"' where slno='"+id+"'";
+//		public String forgotPassword(String pw, String id) {
+//			String status="";
+//			int count=0;
+//			Statement st;
+//			
+//			String qry="update sookshmas1 set password='"+pw+"' where slno='"+id+"'";
+//			try {
+//				st=con.createStatement();
+//				count = st.executeUpdate(qry);
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//			
+//			if(count>0) {
+//				status="success";
+//			}
+//			else {
+//				status="failed";
+//			}
+//			
+//			return status;
+//		}
+
+		public String forgot(String email)
+	    {
+	    	PreparedStatement ps=null;
+	    	String status="";
+	    	String Q1="SELECT * FROM sookshmas1 WHERE EMAIL=?";
+	    	try
+	    	{
+	    		ResultSet rs=null;
+	    		ps=con.prepareStatement(Q1);
+	    		ps.setString(1, email);
+	    		rs=ps.executeQuery();
+	    		if(rs.next()==true)
+	    		{
+	    			String mail=rs.getString("email");
+	    			se.setAttribute("email", mail);
+	    			status="success";
+	    		}
+	    		else
+	    		{
+	    			status="failure";
+	    		}
+	    	}
+	    	catch(Exception e)
+	    	{
+	    		e.printStackTrace();
+	    	}
+	    	
+	    	return status;
+	    }
+
+
+		public String change(String pwrd) {
+			PreparedStatement ps = null;
+			String status = "";
+			String Q1 = "SELECT * FROM sookshmas1 WHERE EMAIL=?";
+			String Q2 = "UPDATE sookshmas1 SET password=? WHERE EMAIL=?";
 			try {
-				st=con.createStatement();
-				count = st.executeUpdate(qry);
-			} catch (SQLException e) {
+				ResultSet rs = null;
+				String em = (String) se.getAttribute("email");
+				ps = con.prepareStatement(Q1);
+				ps.setString(1, em);
+				rs = ps.executeQuery();
+				if (rs.next() == true) {
+					String pd = rs.getString("password");
+					if (pd.equals(pwrd)) {
+						status = "existed";
+					} else {
+						ps = con.prepareStatement(Q2);
+						ps.setString(1, pwrd);
+						ps.setString(2, em);
+						int u = ps.executeUpdate();
+						if (u > 0) {
+							status = "success";
+						} else {
+							status = "failure";
+						}
+					}
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			if(count>0) {
-				status="success";
-			}
-			else {
-				status="failed";
-			}
-			
 			return status;
 		}
 

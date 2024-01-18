@@ -85,6 +85,57 @@ public class register extends HttpServlet{
                     rd1.forward(request, response);
                 }
             }
+			else if(request.getParameter("continue")!=null)
+            {
+            	String email=request.getParameter("email");
+            	String status=reg.forgot(email);
+            	if(status.equals("success"))
+            	{
+            		RequestDispatcher rd1 = request.getRequestDispatcher("change.jsp");
+                    rd1.forward(request, response);
+            	}
+            	else if(status.equals("failure"))
+            	{
+            		request.setAttribute("status","Invalid email");
+            		RequestDispatcher rd1 = request.getRequestDispatcher("forgotpass.jsp");
+                    rd1.forward(request, response);
+                }
+            	
+            }
+            else if(request.getParameter("change")!=null)
+            {
+            	String pword=request.getParameter("pwd");
+            	String cword=request.getParameter("cp");
+            	if(pword.equals(cword))
+            	{
+            		String status=reg.change(pword);
+            		if(status.equals("existed"))
+            		{
+            			request.setAttribute("status","EXISTED PASSWORD");
+            			RequestDispatcher rd1 = request.getRequestDispatcher("change.jsp");
+                        rd1.forward(request, response);
+            		}
+            		else if(status.equals("success"))
+            		{
+            			request.setAttribute("status","password updated successfully");
+            			RequestDispatcher rd1 = request.getRequestDispatcher("login.jsp");
+                        rd1.forward(request, response);
+            			
+            		}
+            		else if(status.equals("failure"))
+            		{
+            			request.setAttribute("status","upadation failed");
+            			RequestDispatcher rd1 = request.getRequestDispatcher("change.jsp");
+                        rd1.forward(request, response);
+            		}
+            	}
+            	else {
+            		request.setAttribute("status","Password not matched");
+        			RequestDispatcher rd1 = request.getRequestDispatcher("change.jsp");
+                    rd1.forward(request, response);
+            	}
+            }
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
