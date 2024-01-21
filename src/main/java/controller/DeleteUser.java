@@ -27,6 +27,7 @@ public class DeleteUser extends HttpServlet{
 				request.getRequestDispatcher("DeleteUser.jsp").forward(request, response);
 			}
 			else if(status.equals("failed")) {
+				System.out.println();
 				request.setAttribute("status", "Failed to delete");
 				request.getRequestDispatcher("DeleteUser.jsp").forward(request, response);
 			}
